@@ -21,20 +21,40 @@
         <div class="title" v-html="video.title" />
 
         <div class="buttons">
-          <div class="button" @click="download()">
-            <q-icon name="fa-solid fa-download" /> Download
-          </div>
+          <!-- <q-btn class="button" @click="downloadaudio(video.url, video.title)">
+            <q-icon name="fa-solid fa-download" /> Audio
+          </q-btn> -->
+          <q-btn class="button" @click="download(video.url, video.title)">
+            <q-icon name="fa-solid fa-download" /> Video
+          </q-btn>
         </div>
+
         <!--  -->
+        <div class="progress">
+          <div
+            :id="
+              'bar-' + video.url.replace('https://www.youtube.com/watch?v=', '')
+            "
+            class="bar"
+          />
+        </div>
+
+        <div>
+          Time left:
+          <div
+            :id="
+              'timeleft-' +
+              video.url.replace('https://www.youtube.com/watch?v=', '')
+            "
+          />
+        </div>
       </div>
     </section>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from 'vue'
-import ytdl from 'ytdl-core'
-import fs from 'fs'
 import Video from 'src/types/video'
 
 export default defineComponent({
@@ -50,11 +70,11 @@ export default defineComponent({
     toggleModal() {
       this.display = !this.display
     },
-    download() {
-      if (this.video?.url) {
-        const stream = ytdl(this.video.url)
-        stream.pipe(fs.createWriteStream('video.mp4'))
-      }
+    download(url, title) {
+      window.myWindowAPI?.download(url, title)
+    },
+    downloadaudio(url, title) {
+      window.myWindowAPI?.downloadaudio(url, title)
     },
   },
 })
@@ -135,10 +155,26 @@ export default defineComponent({
   text-align: center;
 }
 
+.progress {
+  width: 100%;
+  margin-top: 15px;
+  height: 20px;
+  padding: 2px;
+  border-radius: 5px;
+  background: $black;
+  .bar {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: $main;
+    border-radius: 5px;
+  }
+}
+
 .buttons {
   display: flex;
   .button {
-    font-size: 16px;
+    font-size: 15px;
     padding: 5px 10px;
     background: $rose;
     border-radius: 5px;

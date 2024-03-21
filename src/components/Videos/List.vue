@@ -1,5 +1,4 @@
 <template>
-  dasdasdasd
   <VideoItem :key="video" v-for="video in videos" :video="video" />
 </template>
 

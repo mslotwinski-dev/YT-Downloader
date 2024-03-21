@@ -7,7 +7,7 @@ export default configure((/* ctx */) => {
       warnings: true,
       errors: true,
     },
-    boot: ['i18n', 'axios'],
+    boot: ['i18n', 'axios', 'pinia'],
     css: ['app.scss'],
     extras: ['fontawesome-v6', 'roboto-font', 'material-icons'],
 
@@ -20,6 +20,10 @@ export default configure((/* ctx */) => {
           https: false,
           http: false,
           stream: false,
+          timers: false,
+          querystring: false,
+          url: false,
+          child_process: false,
         }
       },
       vueRouterMode: 'hash',
