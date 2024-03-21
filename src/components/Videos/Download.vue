@@ -20,7 +20,11 @@
 
         <div class="title" v-html="video.title" />
 
-        <div class="buttons"></div>
+        <div class="buttons">
+          <div class="button" @click="download()">
+            <q-icon name="fa-solid fa-download" /> Download
+          </div>
+        </div>
         <!--  -->
       </div>
     </section>
@@ -29,6 +33,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import ytdl from 'ytdl-core'
+import fs from 'fs'
 import Video from 'src/types/video'
 
 export default defineComponent({
@@ -43,6 +49,12 @@ export default defineComponent({
   methods: {
     toggleModal() {
       this.display = !this.display
+    },
+    download() {
+      if (this.video?.url) {
+        const stream = ytdl(this.video.url)
+        stream.pipe(fs.createWriteStream('video.mp4'))
+      }
     },
   },
 })
@@ -121,5 +133,16 @@ export default defineComponent({
   font-weight: 500;
   margin: 10px;
   text-align: center;
+}
+
+.buttons {
+  display: flex;
+  .button {
+    font-size: 16px;
+    padding: 5px 10px;
+    background: $rose;
+    border-radius: 5px;
+    font-weight: 500;
+  }
 }
 </style>

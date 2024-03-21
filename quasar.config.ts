@@ -12,6 +12,16 @@ export default configure((/* ctx */) => {
     extras: ['fontawesome-v6', 'roboto-font', 'material-icons'],
 
     build: {
+      extendWebpack(cfg) {
+        cfg.resolve!.fallback = {
+          fs: false,
+          os: false,
+          path: false,
+          https: false,
+          http: false,
+          stream: false,
+        }
+      },
       vueRouterMode: 'hash',
       chainWebpack(chain) {
         chain.resolve.alias.set('@', path.resolve(__dirname, './src'))
