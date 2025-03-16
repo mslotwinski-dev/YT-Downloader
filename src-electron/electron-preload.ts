@@ -39,7 +39,7 @@ contextBridge.exposeInMainWorld('myWindowAPI', {
       title + '.mp4'
     )
 
-    const video = ytdl(url, {quality: 'lowest'})
+    const video = ytdl(url, { quality: 'lowest' })
 
     const id = url.replace('https://www.youtube.com/watch?v=', '')
 
@@ -67,7 +67,6 @@ contextBridge.exposeInMainWorld('myWindowAPI', {
   },
 
   downloadaudio(url: string, title: string) {
-
     const output = path.resolve(
       path.join(os.homedir(), 'Desktop'),
       title + '.mp3'
@@ -78,7 +77,6 @@ contextBridge.exposeInMainWorld('myWindowAPI', {
     const video = ytdl(url, {
       quality: 'highestaudio',
     })
-
 
     const starttime = Date.now()
 
